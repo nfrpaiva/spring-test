@@ -10,6 +10,7 @@ import org.easymock.EasyMock;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +40,11 @@ public class SpringMVCTest {
     private WebApplicationContext wac;
 
     private MockMvc mockMvc;
-    
+
     @Autowired
     private Service serviceMock;
 
-            
+    
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
@@ -83,8 +84,9 @@ public class SpringMVCTest {
                 .andDo(print());
 
     }
+
     @Test
-    public void somarTest() throws Exception{
+    public void somarTest() throws Exception {
         EasyMock.expect(serviceMock.soma(1, 1)).andReturn(2);
         EasyMock.replay(serviceMock);
         this.mockMvc.perform(get("/accounts/1/1"))
@@ -92,6 +94,23 @@ public class SpringMVCTest {
                 .andExpect(model().attribute("soma", 2));
         EasyMock.verify(serviceMock);
         Assert.assertNotNull(this.serviceMock);
+        EasyMock.reset(serviceMock);
     }
 
+    @Test
+    //@Ignore
+    public void somarTest2() throws Exception {
+        EasyMock.expect(serviceMock.soma(1, 2)).andReturn(3);
+        EasyMock.replay(serviceMock);
+        this.mockMvc.perform(get("/accounts/1/2"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("soma", 3));
+        EasyMock.verify(serviceMock);
+        Assert.assertNotNull(this.serviceMock);
+        EasyMock.reset(serviceMock);
+    }
+    @Before
+    public void before (){
+        
+    }
 }

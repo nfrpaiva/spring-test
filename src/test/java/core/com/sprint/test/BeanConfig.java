@@ -16,10 +16,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeanConfig {
 
-
     @Bean(name = "serviceMock")
-    public EasyMockFactoryBean getEasyMockFactoryBean(){
+    public EasyMockFactoryBean getEasyMockFactoryBean() {
         return new EasyMockFactoryBean(Service.class);
     }
-    
+
 }
