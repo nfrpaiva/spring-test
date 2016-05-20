@@ -5,6 +5,7 @@
  */
 package core.com.spring.test;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/accounts")
 public class FirstController {
 
+    @Autowired
+    private Service service;
+
     @RequestMapping(value = "/{id}")
     public ResponseEntity<Person> get(@PathVariable Integer id) {
         return new ResponseEntity<>(new Person("Lee", id), HttpStatus.OK);
@@ -43,6 +47,13 @@ public class FirstController {
         mv.addObject("nome", person.getName());
         mv.addObject("id", person.getId());
         mv.addObject("person", person);
+        return mv;
+    }
+    @RequestMapping(value = "/{a}/{b}", method = {RequestMethod.GET})
+    public ModelAndView somar(@PathVariable Integer a, @PathVariable Integer b){
+        Integer result =  service.soma(a, b);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("soma", result);
         return mv;
     }
 }

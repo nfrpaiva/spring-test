@@ -5,11 +5,16 @@
  */
 package core.com.sprint.test;
 
+import core.com.spring.test.Service;
+import org.easymock.EasyMock;
 import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -27,14 +32,18 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = {SpringMVCTestConfig.class})
+@ContextConfiguration(classes = {SpringMVCTestConfig.class, BeanConfig.class})
 public class SpringMVCTest {
 
     @Autowired
     private WebApplicationContext wac;
 
     private MockMvc mockMvc;
+    
+    @Autowired
+    private Service serviceMock;
 
+            
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
@@ -74,4 +83,13 @@ public class SpringMVCTest {
                 .andDo(print());
 
     }
+    @Test
+    public void somarTest() throws Exception{
+        EasyMock.expect(serviceMock.soma(1, 1)).andReturn(2);
+        EasyMock.replay(serviceMock);
+        this.mockMvc.perform(get("/accounts/1/1")).andExpect(status().isOk()).andExpect(model().attribute("soma", 2));
+        EasyMock.verify(serviceMock);
+        Assert.assertNotNull(this.serviceMock);
+    }
+
 }
