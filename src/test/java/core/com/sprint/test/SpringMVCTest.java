@@ -87,7 +87,9 @@ public class SpringMVCTest {
     public void somarTest() throws Exception{
         EasyMock.expect(serviceMock.soma(1, 1)).andReturn(2);
         EasyMock.replay(serviceMock);
-        this.mockMvc.perform(get("/accounts/1/1")).andExpect(status().isOk()).andExpect(model().attribute("soma", 2));
+        this.mockMvc.perform(get("/accounts/1/1"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("soma", 2));
         EasyMock.verify(serviceMock);
         Assert.assertNotNull(this.serviceMock);
     }
