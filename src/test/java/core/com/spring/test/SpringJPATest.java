@@ -1,0 +1,48 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package core.com.spring.test;
+
+import core.com.spring.test.Pessoa;
+import core.com.spring.test.PessoaService;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+
+/**
+ *
+ * @author fernando
+ */
+@ContextConfiguration(classes = PersistenceJPAConfig.class)
+public class SpringJPATest extends AbstractSpringTest{
+
+    @PersistenceContext
+    private EntityManager em;
+
+    @Autowired
+    private PessoaService pessoaService;
+
+    @Test
+    public void testSpringJPAConfiguration() {
+        Assert.assertNotNull(this.em);
+    }
+
+    @Test
+    public void testIfPersistenceContextInjectionWorks() {
+        Assert.assertNotNull(this.pessoaService);
+        Assert.assertNotNull(this.pessoaService.getEm());
+    }
+    
+    @Test
+    public void testInsert() {
+            Pessoa p =  new Pessoa();
+            p.setNome("Nilton Fernando");
+            pessoaService.inserir(p);
+            Assert.assertNotNull(p.getId());
+    }
+}

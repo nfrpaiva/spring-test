@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,9 @@ public class FirstController {
 
     @Autowired
     private Service service;
+    
+    @Autowired
+    private PrintService printService;
 
     @RequestMapping(value = "/{id}")
     public ResponseEntity<Person> get(@PathVariable Integer id) {
@@ -49,11 +53,13 @@ public class FirstController {
         mv.addObject("person", person);
         return mv;
     }
+
     @RequestMapping(value = "/{a}/{b}", method = {RequestMethod.GET})
-    public ModelAndView somar(@PathVariable Integer a, @PathVariable Integer b){
-        Integer result =  service.soma(a, b);
+    public ModelAndView somar(@PathVariable Integer a, @PathVariable Integer b) {
+        Integer result = service.soma(a, b);
         ModelAndView mv = new ModelAndView();
         mv.addObject("soma", result);
         return mv;
     }
+    
 }

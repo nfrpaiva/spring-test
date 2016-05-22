@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core.com.sprint.test;
+package core.com.spring.test;
 
 import org.easymock.EasyMock;
 import org.springframework.beans.factory.FactoryBean;
