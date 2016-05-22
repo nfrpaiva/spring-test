@@ -17,9 +17,9 @@ public class MockBeanConfig {
     public EasyMockFactoryBean<Service> getEasyMockFactoryBean() {
         return new EasyMockFactoryBean<>(Service.class);
     }
-
-    @Bean(name = "pessoaServiceImpl")
-    public EasyMockFactoryBean<PessoaService> getPessoaServiceFactoryBean() {
-        return new EasyMockFactoryBean<>(PessoaService.class);
-    }
+//
+//    @Bean(name = "pessoaServiceImpl")
+//    public EasyMockFactoryBean<PessoaService> getPessoaServiceFactoryBean() {
+//        return new EasyMockFactoryBean<>(PessoaService.class);
+//    }
 }

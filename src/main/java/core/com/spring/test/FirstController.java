@@ -29,7 +29,7 @@ public class FirstController {
 
     @Autowired
     private Service service;
-    
+
     @Autowired
     private PrintService printService;
 
@@ -61,5 +61,12 @@ public class FirstController {
         mv.addObject("soma", result);
         return mv;
     }
-    
+
+    @RequestMapping(value ="/dividir/{a}/{b}")
+    public ResponseEntity<Long> dividir(@PathVariable Long a, @PathVariable Long b) {
+        Long result;
+        result = a / b;
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }

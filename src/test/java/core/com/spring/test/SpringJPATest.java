@@ -7,12 +7,18 @@ package core.com.spring.test;
 
 import core.com.spring.test.Pessoa;
 import core.com.spring.test.PessoaService;
+import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
+import javax.validation.Validator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  *
@@ -26,7 +32,7 @@ public class SpringJPATest extends AbstractSpringTest{
 
     @Autowired
     private PessoaService pessoaService;
-
+    
     @Test
     public void testSpringJPAConfiguration() {
         Assert.assertNotNull(this.em);
@@ -39,10 +45,20 @@ public class SpringJPATest extends AbstractSpringTest{
     }
     
     @Test
+    @Transactional
     public void testInsert() {
             Pessoa p =  new Pessoa();
             p.setNome("Nilton Fernando");
             pessoaService.inserir(p);
             Assert.assertNotNull(p.getId());
     }
+    
+    @Inject
+    private Validator validador;
+    
+    @Test
+    public void testValidator(){
+        Assert.assertNotNull(this.validador);
+    }
+    
 }

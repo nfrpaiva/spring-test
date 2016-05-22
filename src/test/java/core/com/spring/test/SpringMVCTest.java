@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -29,7 +30,9 @@ import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
@@ -44,14 +47,15 @@ public class SpringMVCTest extends AbstractSpringTest {
 
     @Autowired
     private PrintService printService;
-    
-    @Autowired PessoaService pessoaService;
-    
+
+    @Autowired
+    PessoaService pessoaService;
+
     private MockMvc mockMvc;
 
     @Autowired
     private Service serviceMock;
-    
+
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
@@ -117,25 +121,37 @@ public class SpringMVCTest extends AbstractSpringTest {
     }
 
     @Test
-    public void printAspect(){
+    public void printAspect() {
         Assert.assertNotNull(this.printService);
         String result = this.printService.printt("Ola");
         Assert.assertEquals("Ola", result);
     }
-    
-    @Test 
-    public void inserirPessoa() throws Exception{
-        
-        Capture<Pessoa> pessoaCapture =   Capture.newInstance();
-        pessoaService.inserir(EasyMock.capture(pessoaCapture));
-        EasyMock.expectLastCall();
-        EasyMock.replay(pessoaService);     
-        ResultActions result =  this.mockMvc.perform(get("/pessoa/inserir/Fernando"));
-        EasyMock.verify(pessoaService);
-        pessoaCapture.getValue().setId(1l);
+
+    @Test
+    @Transactional
+    public void inserirPessoa() throws Exception {
+
+        //Capture<Pessoa> pessoaCapture =   Capture.newInstance();
+        //pessoaService.inserir(EasyMock.capture(pessoaCapture));
+        //EasyMock.expectLastCall();
+        //EasyMock.replay(pessoaService);     
+        ResultActions result = this.mockMvc.perform(get("/pessoa/inserir/Fernando"));
+        //EasyMock.verify(pessoaService);
+        //pessoaCapture.getValue().setId(1l);
         result.andExpect(status().isOk())
                 .andExpect(model().attribute("pessoa", Matchers.hasProperty("nome", Matchers.equalTo("Fernando"))))
                 .andExpect(model().attribute("pessoa", Matchers.hasProperty("id", Matchers.notNullValue())));
     }
 
+    @Test
+    public void dividirPorZero() throws Exception {
+        this.mockMvc.perform(get("/accounts/dividir/10/0")).andExpect(status().is(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+    }
+
+    @Test
+    public void dividir() throws Exception {
+        this.mockMvc.perform(get("/accounts/dividir/12/2"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("6"));
+    }
 }
