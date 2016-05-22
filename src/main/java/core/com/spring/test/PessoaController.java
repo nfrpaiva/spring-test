@@ -31,11 +31,7 @@ public class PessoaController {
     public String inserirPessoa (Model model, @PathVariable String nome) throws Exception{
         Pessoa p =  new Pessoa();
         p.setNome(nome);
-        try{
         pessoaService.inserir(p);
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
         model.addAttribute("pessoa", p);
         return "";
     }
