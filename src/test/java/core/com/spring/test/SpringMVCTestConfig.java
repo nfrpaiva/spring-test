@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 @Configuration
 @ComponentScan(basePackages = "core.com.spring.test")
 @EnableAspectJAutoProxy
+
 public class SpringMVCTestConfig extends WebMvcConfigurationSupport {
 
 }

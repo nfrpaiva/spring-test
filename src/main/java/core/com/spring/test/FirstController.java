@@ -5,12 +5,14 @@
  */
 package core.com.spring.test;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,11 +48,13 @@ public class FirstController {
     }
 
     @RequestMapping(value = "/inserir/", method = {RequestMethod.POST})
-    public ModelAndView inserir(@ModelAttribute Person person) {
-        ModelAndView mv = new ModelAndView("inserir.jsp");
+    public ModelAndView inserir(@ModelAttribute @Valid Person person, BindingResult result) {
+        result.hasErrors();
+        ModelAndView mv = new ModelAndView("inserir.jsp", result.getModel());
         mv.addObject("nome", person.getName());
         mv.addObject("id", person.getId());
         mv.addObject("person", person);
+        
         return mv;
     }
 

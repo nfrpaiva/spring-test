@@ -5,11 +5,14 @@
  */
 package core.com.spring.test;
 
+import javax.validation.constraints.NotNull;
+
 /**
  *
  * @author T802892
  */
 public class Person {
+  @NotNull
   private String name;
   private Integer id;
 

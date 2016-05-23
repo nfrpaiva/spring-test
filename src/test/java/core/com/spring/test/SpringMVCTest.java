@@ -86,12 +86,29 @@ public class SpringMVCTest extends AbstractSpringTest {
 
     @Test
     public void testPost() throws Exception {
-        this.mockMvc.perform(post("/accounts/inserir/").param("name", "Fernando").param("id", "24"))
+        this.mockMvc.perform(post("/accounts/inserir/")
+                .param("name", "Fernando")
+                .param("id", "24"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("nome", "Fernando"))
                 .andExpect(model().attribute("id", 24))
+                .andExpect(model().attribute("id", 24))
                 .andExpect(model().attribute("person", Matchers.hasProperty("id", Matchers.equalTo(24))))
                 .andExpect(model().attribute("person", Matchers.hasProperty("name", Matchers.equalTo("Fernando"))))
+                .andExpect(model().attribute("person", Matchers.notNullValue()))
+                .andDo(print());
+    }
+    
+        @Test
+    public void testPostWithAttributeError() throws Exception {
+        this.mockMvc.perform(post("/accounts/inserir/")
+                //.param("name", "Fernando")
+                .param("id", "24"))
+                .andExpect(status().isOk())
+                .andExpect(model().hasErrors())
+                .andExpect(model().attributeHasFieldErrors("person", "name"))
+                .andExpect(model().attribute("id", 24))
+                .andExpect(model().attribute("person", Matchers.hasProperty("id", Matchers.equalTo(24))))
                 .andExpect(model().attribute("person", Matchers.notNullValue()))
                 .andDo(print());
     }
