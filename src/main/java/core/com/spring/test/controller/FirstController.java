@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,9 +31,6 @@ public class FirstController {
 
     @Autowired
     private Service service;
-
-    @Autowired
-    private PrintService printService;
 
     @RequestMapping(value = "/{id}")
     public ResponseEntity<Person> get(@PathVariable Integer id) {
