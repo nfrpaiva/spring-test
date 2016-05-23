@@ -37,7 +37,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 /**
  *
- * @author T802892
+ * @author Nilton Fernando
  */
 @ContextConfiguration(classes = MockBeanConfig.class)
 public class SpringMVCTest extends AbstractSpringTest {

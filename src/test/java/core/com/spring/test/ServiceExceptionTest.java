@@ -11,7 +11,7 @@ import org.junit.Test;
 
 /**
  *
- * @author fernando
+ * @author Nilton Fernando
  */
 public class ServiceExceptionTest {
     

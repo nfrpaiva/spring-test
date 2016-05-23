@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
  *
- * @author fernando
+ * @author Nilton Fernando
  */
 @ControllerAdvice
 public class GlobalController {

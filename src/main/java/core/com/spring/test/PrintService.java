@@ -7,7 +7,7 @@ package core.com.spring.test;
 
 /**
  *
- * @author fernando
+ * @author Nilton Fernando
  */
 public interface PrintService {
     public String printt(String value);

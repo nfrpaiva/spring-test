@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 
 /**
  *
- * @author fernando
+ * @author Nilton Fernando
  */
 public class ServiceException extends Exception{
     private static final ResourceBundle resource =  ResourceBundle.getBundle("exceptions");

@@ -7,7 +7,7 @@ package core.com.spring.test;
 
 /**
  *
- * @author T802892
+ * @author Nilton Fernando
  */
 public class Person {
   private String name;

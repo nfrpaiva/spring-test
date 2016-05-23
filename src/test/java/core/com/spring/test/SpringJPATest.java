@@ -22,7 +22,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  *
- * @author fernando
+ * @author Nilton Fernando
  */
 @ContextConfiguration(classes = PersistenceJPAConfig.class)
 public class SpringJPATest extends AbstractSpringTest{

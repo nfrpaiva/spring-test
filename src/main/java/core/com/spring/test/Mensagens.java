@@ -7,7 +7,7 @@ package core.com.spring.test;
 
 /**
  *
- * @author fernando
+ * @author Nilton Fernando
  */
 public enum Mensagens {
     ERRO_AO_LOGIN("login.erro"),

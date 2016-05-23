@@ -19,7 +19,7 @@ import static org.springframework.web.context.WebApplicationContext.SCOPE_REQUES
 
 /**
  *
- * @author fernando
+ * @author Nilton Fernando
  */
 @Controller
 @Scope(value = SCOPE_REQUEST)

@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 /**
  *
- * @author T802892
+ * @author Nilton Fernando
  */
 @Configuration
 @ComponentScan(basePackages = "core.com.spring.test")

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.FactoryBean;
 
 /**
  *
- * @author fernando
+ * @author Nilton Fernando
  */
 public class EasyMockFactoryBean<T> implements FactoryBean<T>{
 

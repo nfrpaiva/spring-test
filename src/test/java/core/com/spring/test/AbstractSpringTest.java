@@ -13,7 +13,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  *
- * @author fernando
+ * @author Nilton Fernando
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration

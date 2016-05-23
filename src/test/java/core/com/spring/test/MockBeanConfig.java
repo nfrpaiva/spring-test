@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 
 /**
  *
- * @author fernando
+ * @author Nilton Fernando
  */
 public class MockBeanConfig {
 

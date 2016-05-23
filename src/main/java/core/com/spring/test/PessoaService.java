@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 
 /**
  *
- * @author fernando
+ * @author Nilton Fernando
  */
 public interface PessoaService {
     public EntityManager getEm();
