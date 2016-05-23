@@ -1,5 +1,6 @@
 package core.com.spring.test;
 
+import core.com.spring.test.exception.ExceptionMensagens;
 import java.util.ResourceBundle;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,7 +18,7 @@ public class ResourceBundleTest {
     @Test
     public void enumsTest() {
         ResourceBundle rBR = ResourceBundle.getBundle("exceptions");
-        for (Mensagens m : Mensagens.values()) {
+        for (ExceptionMensagens m : ExceptionMensagens.values()) {
             Assert.assertTrue(rBR.containsKey(m.getValue()));
         }
     }

@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core.com.spring.test;
+package core.com.spring.test.config;
 
+import core.com.spring.test.spring.factory.EasyMockFactoryBean;
+import core.com.spring.test.service.Service;
 import org.springframework.context.annotation.Bean;
 
 /**

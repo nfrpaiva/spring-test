@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core.com.spring.test;
-
-import javax.persistence.EntityManager;
+package core.com.spring.test.service;
 
 /**
  *
  * @author Nilton Fernando
  */
-public interface PessoaService {
-    public EntityManager getEm();
-
-    public void inserir(Pessoa p);
+public interface PrintService {
+    public String printt(String value);
 }

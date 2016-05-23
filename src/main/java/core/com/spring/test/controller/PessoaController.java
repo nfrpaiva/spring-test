@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core.com.spring.test;
+package core.com.spring.test.controller;
 
+import core.com.spring.test.dominio.Pessoa;
+import core.com.spring.test.service.PessoaService;
 import javax.inject.Inject;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;

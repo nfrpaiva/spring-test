@@ -5,6 +5,7 @@
  */
 package core.com.spring.test;
 
+import core.com.spring.test.exception.ExceptionMensagens;
 import core.com.spring.test.exception.ServiceException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,8 +18,8 @@ public class ServiceExceptionTest {
     
     @Test
     public void testException(){
-        Assert.assertEquals("é uma frase com ação", new ServiceException(Mensagens.LOGIN_ACENTO).getMessage());
-        Assert.assertEquals("Erro ao tentar fazer login", new ServiceException(Mensagens.ERRO_AO_LOGIN).getMessage());
-        Assert.assertEquals("Sucesso ao Login", new ServiceException(Mensagens.SUCESSO_LOGIN).getMessage());
+        Assert.assertEquals("é uma frase com ação", new ServiceException(ExceptionMensagens.LOGIN_ACENTO).getMessage());
+        Assert.assertEquals("Erro ao tentar fazer login", new ServiceException(ExceptionMensagens.ERRO_AO_LOGIN).getMessage());
+        Assert.assertEquals("Sucesso ao Login", new ServiceException(ExceptionMensagens.SUCESSO_LOGIN).getMessage());
     }
 }

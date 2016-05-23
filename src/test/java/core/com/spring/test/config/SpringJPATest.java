@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core.com.spring.test;
+package core.com.spring.test.config;
 
-import core.com.spring.test.Pessoa;
-import core.com.spring.test.PessoaService;
+import core.com.spring.test.config.PersistenceJPAConfig;
+import core.com.spring.test.dominio.Pessoa;
+import core.com.spring.test.service.PessoaService;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;

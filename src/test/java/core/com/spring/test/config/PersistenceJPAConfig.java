@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core.com.spring.test;
+package core.com.spring.test.config;
 
 import java.util.Properties;
 import javax.persistence.EntityManagerFactory;

@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core.com.spring.test;
+package core.com.spring.test.exception;
 
 /**
  *
  * @author Nilton Fernando
  */
-public enum Mensagens {
+public enum ExceptionMensagens {
     ERRO_AO_LOGIN("login.erro"),
     SUCESSO_LOGIN("login.sucesso"),
     LOGIN_ACENTO("login.acento"),
@@ -17,7 +17,7 @@ public enum Mensagens {
     ;
     private final String value;
     
-    private Mensagens(String value) {
+    private ExceptionMensagens(String value) {
         this.value= value;
     }
 

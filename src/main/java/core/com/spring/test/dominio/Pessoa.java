@@ -1,4 +1,4 @@
-package core.com.spring.test;
+package core.com.spring.test.dominio;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
