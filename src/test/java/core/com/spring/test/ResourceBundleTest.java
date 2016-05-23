@@ -1,5 +1,7 @@
 package core.com.spring.test;
 
+
+import core.com.spring.test.exception.ExceptionMessages;
 import java.util.ResourceBundle;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,10 +19,11 @@ public class ResourceBundleTest {
     @Test
     public void enumsTest() {
         ResourceBundle rBR = ResourceBundle.getBundle("exceptions");
-        for (ExceptionMessage m : ExceptionMessage.values()) {
+        for (ExceptionMessages m : ExceptionMessages.values()) {
             if(!rBR.containsKey(m.getValue())){
             Assert.fail("Não existe mensagem para a chave: " + m.getValue()+ " no arquivo exceptions.properties");
             }
+
         }
     }
 }

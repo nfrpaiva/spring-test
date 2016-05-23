@@ -3,16 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core.com.spring.test;
-
-import javax.persistence.EntityManager;
+package core.com.spring.test.generics;
 
 /**
  *
- * @author fernando
+ * @author T802892
  */
-public interface PessoaService {
-    public EntityManager getEm();
-
-    public void inserir(Pessoa p);
+public interface GenericClass {
+   public <T> boolean get(T value);
+   
 }

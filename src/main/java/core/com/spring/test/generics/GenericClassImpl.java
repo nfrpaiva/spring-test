@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core.com.spring.test;
+package core.com.spring.test.generics;
 
-import javax.inject.Named;
 
-@Named
-public class PrintServiceImpl implements PrintService {
+public class GenericClassImpl implements GenericClass {
 
     @Override
-    public String printt(String value) {
-        return value;
+    public <T> boolean get(T value) {
+        return true;
     }
     
 }

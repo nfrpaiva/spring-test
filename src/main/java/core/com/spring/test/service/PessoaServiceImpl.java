@@ -1,5 +1,6 @@
-package core.com.spring.test;
+package core.com.spring.test.service;
 
+import core.com.spring.test.dominio.Pessoa;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Component;

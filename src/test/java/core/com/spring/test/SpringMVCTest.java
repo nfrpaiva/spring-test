@@ -5,39 +5,32 @@
  */
 package core.com.spring.test;
 
-import core.com.spring.test.PessoaService;
-import core.com.spring.test.PrintService;
-import core.com.spring.test.Service;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.easymock.Capture;
+import core.com.spring.test.config.AbstractSpringTest;
+import core.com.spring.test.config.MockBeanConfig;
+import core.com.spring.test.service.PessoaService;
+import core.com.spring.test.service.PrintService;
+import core.com.spring.test.service.Service;
 import org.easymock.EasyMock;
-import org.easymock.internal.matchers.Captures;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
  *
- * @author T802892
+ * @author Nilton Fernando
  */
 @ContextConfiguration(classes = MockBeanConfig.class)
 public class SpringMVCTest extends AbstractSpringTest {

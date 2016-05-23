@@ -3,16 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core.com.spring.test;
+package core.com.spring.test.controller;
+
 
 import javax.validation.Valid;
+import core.com.spring.test.dominio.Person;
+import core.com.spring.test.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
- * @author T802892
+ * @author Nilton Fernando
  */
 @Controller
 @Scope(value = SCOPE_REQUEST)
@@ -31,9 +35,6 @@ public class FirstController {
 
     @Autowired
     private Service service;
-
-    @Autowired
-    private PrintService printService;
 
     @RequestMapping(value = "/{id}")
     public ResponseEntity<Person> get(@PathVariable Integer id) {

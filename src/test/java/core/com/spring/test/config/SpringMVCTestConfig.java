@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core.com.spring.test;
+package core.com.spring.test.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 /**
  *
- * @author T802892
+ * @author Nilton Fernando
  */
 @Configuration
 @ComponentScan(basePackages = "core.com.spring.test")

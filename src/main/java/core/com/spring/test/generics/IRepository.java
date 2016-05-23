@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core.com.spring.test;
+package core.com.spring.test.generics;
 
 /**
  *
- * @author fernando
+ * @author T802892
  */
-public interface PrintService {
-    public String printt(String value);
+public interface IRepository {
+    public <T extends AbstractEntity> T find (Class<T> type, Object id);
 }
