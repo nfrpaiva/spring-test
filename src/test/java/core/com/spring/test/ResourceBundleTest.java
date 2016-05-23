@@ -17,8 +17,10 @@ public class ResourceBundleTest {
     @Test
     public void enumsTest() {
         ResourceBundle rBR = ResourceBundle.getBundle("exceptions");
-        for (Mensagens m : Mensagens.values()) {
-            Assert.assertTrue(rBR.containsKey(m.getValue()));
+        for (ExceptionMessage m : ExceptionMessage.values()) {
+            if(!rBR.containsKey(m.getValue())){
+            Assert.fail("Não existe mensagem para a chave: " + m.getValue()+ " no arquivo exceptions.properties");
+            }
         }
     }
 }

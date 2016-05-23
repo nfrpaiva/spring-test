@@ -5,7 +5,7 @@
  */
 package core.com.spring.test.exception;
 
-import core.com.spring.test.Mensagens;
+import core.com.spring.test.ExceptionMessage;
 import java.util.ResourceBundle;
 
 /**
@@ -15,12 +15,12 @@ import java.util.ResourceBundle;
 public class ServiceException extends Exception{
     private static final ResourceBundle resource =  ResourceBundle.getBundle("exceptions");
     
-    public ServiceException(Mensagens message) {
+    public ServiceException(ExceptionMessage message) {
         
         super(resource.getString(message.getValue()));
     }
 
-    public ServiceException(Mensagens message, Throwable cause) {
+    public ServiceException(ExceptionMessage message, Throwable cause) {
         super(resource.getString(message.getValue()), cause);
     }
     

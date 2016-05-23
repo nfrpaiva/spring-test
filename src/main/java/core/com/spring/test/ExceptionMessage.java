@@ -9,15 +9,16 @@ package core.com.spring.test;
  *
  * @author fernando
  */
-public enum Mensagens {
+public enum ExceptionMessage {
     ERRO_AO_LOGIN("login.erro"),
     SUCESSO_LOGIN("login.sucesso"),
     LOGIN_ACENTO("login.acento"),
-    NOME_INVALIDO("nome.invalido")
+    NOME_INVALIDO("nome.invalido"),
+    ERRO_DESCONHECIDO("erro.desconhecido")
     ;
     private final String value;
     
-    private Mensagens(String value) {
+    private ExceptionMessage(String value) {
         this.value= value;
     }
 
