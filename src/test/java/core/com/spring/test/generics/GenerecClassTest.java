@@ -7,13 +7,17 @@ package core.com.spring.test.generics;
 
 import core.com.spring.test.dominio.Person;
 import org.easymock.Capture;
+import org.easymock.EasyMockRunner;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author T802892
  */
+@RunWith(EasyMockRunner.class)
 public class GenerecClassTest {
     private final GenericClassImpl classImpl =  new GenericClassImpl();
     private final  GenericRepository repository = new GenericRepository();

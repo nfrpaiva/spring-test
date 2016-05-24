@@ -10,6 +10,7 @@ package core.com.spring.test.generics;
  * @author T802892
  */
 public interface GenericClass {
-   public <T> boolean get(T value);
-   
+
+    public <T> boolean get(T value);
+
 }
