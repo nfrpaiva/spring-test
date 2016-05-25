@@ -149,7 +149,7 @@ public class SpringMVCTest extends AbstractSpringTest {
         //EasyMock.verify(pessoaService);
         //pessoaCapture.getValue().setId(1l);
         result.andExpect(status().isOk())
-                .andExpect(model().attribute("pessoa", Matchers.hasProperty("nome", Matchers.equalTo("Fernando"))))
+                .andExpect(model().attribute("pessoa", Matchers.hasProperty("nome", Matchers.equalTo("Fernando".toUpperCase()))))
                 .andExpect(model().attribute("pessoa", Matchers.hasProperty("id", Matchers.notNullValue())));
     }
 
@@ -163,5 +163,18 @@ public class SpringMVCTest extends AbstractSpringTest {
         this.mockMvc.perform(get("/accounts/dividir/12/2"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("6"));
+    }
+    
+        @Test
+    public void inserirAutomovel() throws Exception {
+        this.mockMvc.perform(post("/automovel/inserir/")
+                .param("anoModelo", "1980")
+                .param("anoFabricacao", "1999")
+                .param("id", "24"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("automovel"))
+                .andExpect(model().attributeHasFieldErrors("automovel",  "anoFabricacao"))
+                .andExpect(model().attributeErrorCount("automovel", 1))
+                .andDo(print());
     }
 }

@@ -47,7 +47,7 @@ public class SpringJPATest extends AbstractSpringTest{
     @Transactional
     public void testInsert() {
             Pessoa p =  new Pessoa();
-            p.setNome("Nilton Fernando");
+            p.setNome("Nilton Fernando".toUpperCase());
             pessoaService.inserir(p);
             Assert.assertNotNull(p.getId());
     }

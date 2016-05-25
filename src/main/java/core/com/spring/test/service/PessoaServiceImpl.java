@@ -4,7 +4,6 @@ import core.com.spring.test.dominio.Pessoa;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 //@Transactional
