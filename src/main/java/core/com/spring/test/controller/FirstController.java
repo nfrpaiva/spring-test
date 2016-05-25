@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @Scope(value = SCOPE_REQUEST)
-@RequestMapping(value = "/accounts")
+@RequestMapping(value = "/firstcontroller")
 public class FirstController {
 
     @Autowired
@@ -45,8 +45,12 @@ public class FirstController {
 
     @RequestMapping(value = "/inserir/", method = {RequestMethod.POST})
     public ModelAndView inserir(@ModelAttribute @Valid Person person, BindingResult result) {
-        result.hasErrors();
-        ModelAndView mv = new ModelAndView("inserir.jsp", result.getModel());
+    	ModelAndView mv;
+    	if (result.hasErrors()){
+        	mv = new ModelAndView("inserir.jsp", result.getModel());
+        }else {
+        	mv = new ModelAndView("sucesso");
+        }
         mv.addObject("nome", person.getName());
         mv.addObject("id", person.getId());
         mv.addObject("person", person);
