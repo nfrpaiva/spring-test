@@ -12,6 +12,8 @@ import javax.persistence.Id;
 
 public class Pessoa implements Serializable {
 
+	private static final long serialVersionUID = 2104219867453567628L;
+
 	@Id
 	@GeneratedValue (strategy=GenerationType.AUTO)
 	private Long id;
