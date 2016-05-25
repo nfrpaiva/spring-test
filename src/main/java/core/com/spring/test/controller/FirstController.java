@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @Scope(value = SCOPE_REQUEST)
-@RequestMapping(value = "/accounts")
+@RequestMapping(value = "/firstcontroller")
 public class FirstController {
 
     @Autowired
