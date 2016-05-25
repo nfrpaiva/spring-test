@@ -10,9 +10,9 @@ import javax.inject.Named;
 @Named
 public class PrintServiceImpl implements PrintService {
 
-    @Override
-    public String printt(String value) {
-        return value;
-    }
-    
+	@Override
+	public String printt(String value) {
+		return value;
+	}
+
 }

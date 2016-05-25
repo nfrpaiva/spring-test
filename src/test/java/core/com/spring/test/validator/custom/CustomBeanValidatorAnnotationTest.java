@@ -2,7 +2,7 @@ package core.com.spring.test.validator.custom;
 
 import static org.junit.Assert.assertTrue;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ResourceBundle;
 
 import org.junit.Test;
@@ -11,7 +11,6 @@ import core.com.spring.test.validator.AnoFabricacaoMaiorQueAnoModelo;
 import core.com.spring.test.validator.CaseMode;
 import core.com.spring.test.validator.CheckCase;
 
-@AnoFabricacaoMaiorQueAnoModelo
 public class CustomBeanValidatorAnnotationTest {
 
 	@CheckCase(value = CaseMode.UPPER)
@@ -25,29 +24,20 @@ public class CustomBeanValidatorAnnotationTest {
 
 	@Test
 	public void testCheckCaseAnnotation() throws Exception {
-		Field[] declaredFields = this.getClass().getDeclaredFields();
-		for (int i = 0 ; i < declaredFields.length ; i++) {
-			if (declaredFields[i].getName().equals("nome")) {
-				Field field = declaredFields[i];
-				String key = field.getAnnotation(CheckCase.class).message();
-				key = limparChave(key);
-				assertKey(key);
-			}
-		}
+		String key = this.getClass().getDeclaredField("nome").getAnnotation(CheckCase.class).message();
+		assertKey(key);
 	}
 
-	public void testAnoFabricacaoMaiorQueAnoModeloAnnotation() {
-		String key = this.getClass().getAnnotation(AnoFabricacaoMaiorQueAnoModelo.class).message();
-		key = limparChave(key);
+	public void testAnoFabricacaoMaiorQueAnoModeloAnnotation() throws Exception {
+		Class<?>[] args = new Class[]{};
+		Method m = AnoFabricacaoMaiorQueAnoModelo.class.getMethod("message",args);
+		String key = (String) m.invoke(AnoFabricacaoMaiorQueAnoModelo.class,new Object[]{});
 		assertKey(key);
 	}
 
 	private void assertKey(String key) {
+		key = key.replace("{","").replace("}","");
 		assertTrue("Resource ValidationMessage deve conter a chave: " + key,resource.containsKey(key));
 	}
 
-	private String limparChave(String key) {
-		key = key.replace("{","").replace("}","");
-		return key;
-	}
 }
