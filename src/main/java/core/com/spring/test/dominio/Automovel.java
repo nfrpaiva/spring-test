@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author fernando
+ * @author Nilton Fernando
  */
 @AnoFabricacaoMaiorQueAnoModelo
 public class Automovel {

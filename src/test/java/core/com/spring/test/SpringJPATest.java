@@ -8,7 +8,11 @@ package core.com.spring.test;
 import core.com.spring.test.config.AbstractSpringTest;
 import core.com.spring.test.config.PersistenceJPAConfig;
 import core.com.spring.test.dominio.Pessoa;
+import core.com.spring.test.infra.BaseRepository;
 import core.com.spring.test.service.PessoaService;
+
+import java.lang.reflect.Field;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,15 +36,21 @@ public class SpringJPATest extends AbstractSpringTest{
     @Autowired
     private PessoaService pessoaService;
     
+    @Autowired 
+    private BaseRepository repository;
+    
     @Test
     public void testSpringJPAConfiguration() {
         Assert.assertNotNull(this.em);
     }
 
     @Test
-    public void testIfPersistenceContextInjectionWorks() {
-        Assert.assertNotNull(this.pessoaService);
-        Assert.assertNotNull(this.pessoaService.getEm());
+    public void testIfPersistenceContextInjectionWorks() throws Exception {
+        Assert.assertNotNull(this.repository);
+        Field f = this.repository.getClass().getDeclaredField("em");
+        f.setAccessible(true);
+        Object em = f.get(this.repository);
+        Assert.assertNotNull("Entity Manager não pode ser nulo",em);
     }
     
     @Test

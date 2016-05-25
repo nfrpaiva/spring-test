@@ -10,7 +10,7 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  *
- * @author fernando
+ * @author Nilton Fernando
  */
 public class CheckCaseValidator implements ConstraintValidator<CheckCase, String> {
 

@@ -1,26 +1,23 @@
 package core.com.spring.test.service;
 
-import core.com.spring.test.dominio.Pessoa;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Component;
+
+import core.com.spring.test.dominio.Pessoa;
+import core.com.spring.test.infra.BaseRepository;
 
 @Component
 //@Transactional
 public class PessoaServiceImpl implements PessoaService {
 
-	@PersistenceContext
-	private EntityManager em;
-
-        @Override
-	public EntityManager getEm() {
-		return em;
-	}
+	@Inject
+	BaseRepository repository;
+	
 
     @Override
     public void inserir(Pessoa p) {
-        em.persist(p);
+        repository.persist(p);
     }
 
-	
 }

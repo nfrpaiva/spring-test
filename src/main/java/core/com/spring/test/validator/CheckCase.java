@@ -15,10 +15,9 @@ import javax.validation.Payload;
 
 /**
  *
- * @author fernando
+ * @author Nilton Fernando
  */
-//@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE})
-@Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 @Retention(RUNTIME)
 @Constraint(validatedBy = CheckCaseValidator.class)
 @Documented

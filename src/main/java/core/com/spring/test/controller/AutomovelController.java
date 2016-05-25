@@ -5,16 +5,17 @@
  */
 package core.com.spring.test.controller;
 
-import core.com.spring.test.dominio.Automovel;
-import core.com.spring.test.service.PessoaService;
-import javax.inject.Inject;
+import static org.springframework.web.context.WebApplicationContext.SCOPE_REQUEST;
+
 import javax.validation.Valid;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import static org.springframework.web.context.WebApplicationContext.SCOPE_REQUEST;
+
+import core.com.spring.test.dominio.Automovel;
 
 /**
  *
@@ -24,8 +25,6 @@ import static org.springframework.web.context.WebApplicationContext.SCOPE_REQUES
 @Scope(value = SCOPE_REQUEST)
 @RequestMapping(value = "/automovel")
 public class AutomovelController {
-    @Inject
-    private PessoaService pessoaService;
     @RequestMapping(value = "/inserir", method = {RequestMethod.POST})
     public String inserirAutomovel (@Valid Automovel automovel, BindingResult result) throws Exception{
         return "automovel/inserir";

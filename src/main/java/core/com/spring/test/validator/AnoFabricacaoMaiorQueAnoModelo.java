@@ -15,7 +15,7 @@ import javax.validation.Payload;
 
 /**
  *
- * @author fernando
+ * @author Nilton Fernando
  */
 @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RUNTIME)

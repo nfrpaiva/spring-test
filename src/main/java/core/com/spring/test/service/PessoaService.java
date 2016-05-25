@@ -6,14 +6,11 @@
 package core.com.spring.test.service;
 
 import core.com.spring.test.dominio.Pessoa;
-import javax.persistence.EntityManager;
 
 /**
- *
  * @author Nilton Fernando
  */
 public interface PessoaService {
-    public EntityManager getEm();
 
-    public void inserir(Pessoa p);
+	public void inserir(Pessoa p);
 }
