@@ -51,10 +51,10 @@ public class Automovel implements Validable {
         } 
         
         //Usando apenas Matchers
-        isValid = is(greaterThan(anoFabricacao)).matches(anoModelo);
+        isValid = greaterThan(anoFabricacao).matches(anoModelo);
         
         //Usando a api Bool - com.lordofthejars - bool
-        isValid = the(anoModelo, is(greaterThan(anoFabricacao)));
+        isValid = the(anoModelo, greaterThan(anoFabricacao));
         
         cvc.buildConstraintViolationWithTemplate("{core.com.spring.test.constraint.anofabricacao}")
                 .addPropertyNode("anoFabricacao")
