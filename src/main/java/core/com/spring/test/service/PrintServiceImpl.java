@@ -6,7 +6,7 @@ import javax.inject.Named;
 public class PrintServiceImpl implements PrintService {
 
 	@Override
-	public String printt(String value) {
+	public String imprimir(String value) {
 		return value;
 	}
 

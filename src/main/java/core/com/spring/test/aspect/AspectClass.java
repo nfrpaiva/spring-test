@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class AspectClass {
 
-    @Around("execution(* printt(..))")
+    @Around("execution(* imprimir(..))")
     public Object teste(ProceedingJoinPoint pjp) throws Throwable{
         Object o = pjp.proceed();
         System.out.println("core.com.spring.test.AspectClass.teste() " + o);

@@ -127,7 +127,7 @@ public class SpringMVCTest extends AbstractSpringTest {
     @Test
     public void printAspect() {
         Assert.assertNotNull(this.printService);
-        String result = this.printService.printt("Ola");
+        String result = this.printService.imprimir("Ola");
         Assert.assertEquals("Ola", result);
     }
 
