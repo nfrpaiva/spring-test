@@ -39,4 +39,5 @@ public class BoolApiTest {
         MatcherAssert.assertThat("nome", isA(String.class));
         MatcherAssert.assertThat("nao deu", value, anyOf(nullValue(), equalTo("teste")));
     }
+
 }
