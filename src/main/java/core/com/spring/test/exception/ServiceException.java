@@ -12,7 +12,8 @@ import java.util.ResourceBundle;
  * @author Nilton Fernando
  */
 public class ServiceException extends Exception{
-    private static final ResourceBundle resource =  ResourceBundle.getBundle("exceptions");
+    private static final long serialVersionUID = -3447125273328585747L;
+	private static final ResourceBundle resource =  ResourceBundle.getBundle("exceptions");
     
     public ServiceException(ExceptionMessages message) {
         
