@@ -1,19 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package core.com.spring.test.dominio;
 
-import core.com.spring.test.validator.AnoFabricacaoMaiorQueAnoModelo;
+import static com.lordofthejars.bool.Bool.*;
+import javax.validation.ConstraintValidatorContext;
 import javax.validation.constraints.NotNull;
+import static org.hamcrest.Matchers.*;
 
 /**
- *
  * @author Nilton Fernando
  */
-@AnoFabricacaoMaiorQueAnoModelo
-public class Automovel {
+public class Automovel implements Validable {
 
     @NotNull
     private Integer anoFabricacao;
@@ -34,6 +29,33 @@ public class Automovel {
 
     public void setAnoModelo(Integer anoModelo) {
         this.anoModelo = anoModelo;
+    }
+
+    @Override
+    public boolean validate(ConstraintValidatorContext cvc) {
+        boolean isValid;
+
+        //Usando apenas Matchers
+        if(nullValue().matches(anoFabricacao) || nullValue().matches(anoModelo)){
+            return true;
+        }
+        
+        //Usando a api Bool - com.lordofthejars - bool
+        if(the(anoFabricacao,nullValue()) || the(anoModelo,nullValue())){
+            return true;
+        } 
+        
+        //Usando apenas Matchers
+        isValid = greaterThan(anoFabricacao).matches(anoModelo);
+        
+        //Usando a api Bool - com.lordofthejars - bool
+        isValid = the(anoModelo, greaterThan(anoFabricacao));
+        
+        cvc.buildConstraintViolationWithTemplate("{core.com.spring.test.constraint.anofabricacao}")
+                .addPropertyNode("anoFabricacao")
+                .addConstraintViolation();
+        return isValid;
+
     }
 
 }

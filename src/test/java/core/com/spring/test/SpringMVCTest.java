@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package core.com.spring.test;
 
 import core.com.spring.test.config.AbstractSpringTest;
@@ -57,19 +52,19 @@ public class SpringMVCTest extends AbstractSpringTest {
     @Test
     public void getPerson() throws Exception {
         Integer id = 1;
-        this.mockMvc.perform(get("/accounts/" + id)
+        this.mockMvc.perform(get("/firstcontroller/" + id)
                 .accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.name").value("Lee"))
-                .andExpect(jsonPath("$.id").value(id)) //.andDo(print())
+                .andExpect(jsonPath("$.id").value(id))
                 ;
     }
 
     @Test
     public void getList() throws Exception {
         String hello = "Ola";
-        this.mockMvc.perform(get("/accounts/pessoa/" + hello)
+        this.mockMvc.perform(get("/firstcontroller/pessoa/" + hello)
                 .accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("nome", hello))
@@ -79,7 +74,7 @@ public class SpringMVCTest extends AbstractSpringTest {
 
     @Test
     public void testPost() throws Exception {
-        this.mockMvc.perform(post("/accounts/inserir/")
+        this.mockMvc.perform(post("/firstcontroller/inserir/")
                 .param("name", "Fernando")
                 .param("id", "24"))
                 .andExpect(status().isOk())
@@ -94,8 +89,7 @@ public class SpringMVCTest extends AbstractSpringTest {
     
         @Test
     public void testPostWithAttributeError() throws Exception {
-        this.mockMvc.perform(post("/accounts/inserir/")
-                //.param("name", "Fernando")
+        this.mockMvc.perform(post("/firstcontroller/inserir/")
                 .param("id", "24"))
                 .andExpect(status().isOk())
                 .andExpect(model().hasErrors())
@@ -110,7 +104,7 @@ public class SpringMVCTest extends AbstractSpringTest {
     public void somarTest() throws Exception {
         EasyMock.expect(serviceMock.soma(1, 1)).andReturn(2);
         EasyMock.replay(serviceMock);
-        this.mockMvc.perform(get("/accounts/1/1"))
+        this.mockMvc.perform(get("/firstcontroller/1/1"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("soma", 2));
         EasyMock.verify(serviceMock);
@@ -122,7 +116,7 @@ public class SpringMVCTest extends AbstractSpringTest {
     public void somarTest2() throws Exception {
         EasyMock.expect(serviceMock.soma(1, 2)).andReturn(3);
         EasyMock.replay(serviceMock);
-        this.mockMvc.perform(get("/accounts/1/2"))
+        this.mockMvc.perform(get("/firstcontroller/1/2"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("soma", 3));
         EasyMock.verify(serviceMock);
@@ -133,21 +127,14 @@ public class SpringMVCTest extends AbstractSpringTest {
     @Test
     public void printAspect() {
         Assert.assertNotNull(this.printService);
-        String result = this.printService.printt("Ola");
+        String result = this.printService.imprimir("Ola");
         Assert.assertEquals("Ola", result);
     }
 
     @Test
     @Transactional
     public void inserirPessoa() throws Exception {
-
-        //Capture<Pessoa> pessoaCapture =   Capture.newInstance();
-        //pessoaService.inserir(EasyMock.capture(pessoaCapture));
-        //EasyMock.expectLastCall();
-        //EasyMock.replay(pessoaService);     
         ResultActions result = this.mockMvc.perform(get("/pessoa/inserir/Fernando"));
-        //EasyMock.verify(pessoaService);
-        //pessoaCapture.getValue().setId(1l);
         result.andExpect(status().isOk())
                 .andExpect(model().attribute("pessoa", Matchers.hasProperty("nome", Matchers.equalTo("Fernando".toUpperCase()))))
                 .andExpect(model().attribute("pessoa", Matchers.hasProperty("id", Matchers.notNullValue())));
@@ -155,12 +142,12 @@ public class SpringMVCTest extends AbstractSpringTest {
 
     @Test
     public void dividirPorZero() throws Exception {
-        this.mockMvc.perform(get("/accounts/dividir/10/0")).andExpect(status().is(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+        this.mockMvc.perform(get("/firstcontroller/dividir/10/0")).andExpect(status().is(HttpStatus.INTERNAL_SERVER_ERROR.value()));
     }
 
     @Test
     public void dividir() throws Exception {
-        this.mockMvc.perform(get("/accounts/dividir/12/2"))
+        this.mockMvc.perform(get("/firstcontroller/dividir/12/2"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("6"));
     }
