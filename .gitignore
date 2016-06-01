@@ -1,6 +1,8 @@
+build/
 .project
 .classpath
 .settings
 .idea
 target/
 /nbproject/
+.gradle/
