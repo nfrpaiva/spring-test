@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -68,7 +67,8 @@ public class SpringMVCTest extends AbstractSpringTest {
                 .accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("nome", hello))
-                .andDo(print());
+                //.andDo(print())
+                ;
 
     }
 
@@ -84,7 +84,8 @@ public class SpringMVCTest extends AbstractSpringTest {
                 .andExpect(model().attribute("person", Matchers.hasProperty("id", Matchers.equalTo(24))))
                 .andExpect(model().attribute("person", Matchers.hasProperty("name", Matchers.equalTo("Fernando"))))
                 .andExpect(model().attribute("person", Matchers.notNullValue()))
-                .andDo(print());
+                //.andDo(print())
+                ;
     }
     
         @Test
@@ -97,7 +98,8 @@ public class SpringMVCTest extends AbstractSpringTest {
                 .andExpect(model().attribute("id", 24))
                 .andExpect(model().attribute("person", Matchers.hasProperty("id", Matchers.equalTo(24))))
                 .andExpect(model().attribute("person", Matchers.notNullValue()))
-                .andDo(print());
+                //.andDo(print())
+                ;
     }
 
     @Test
@@ -162,6 +164,7 @@ public class SpringMVCTest extends AbstractSpringTest {
                 .andExpect(model().attributeExists("automovel"))
                 .andExpect(model().attributeHasFieldErrors("automovel",  "anoFabricacao"))
                 .andExpect(model().attributeErrorCount("automovel", 1))
-                .andDo(print());
+                //.andDo(print())
+                ;
     }
 }

@@ -26,7 +26,7 @@ import core.com.spring.test.service.ApontamentoService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextHierarchy({ @ContextConfiguration(classes = { PersistenceJPAConfig.class }) })
 @Transactional
-public class ApontamentoTest extends AbstractSpringTest {
+public class ApontamentoServiceTest extends AbstractSpringTest {
 
 	@Inject
 	private ApontamentoService apontamentoService;
