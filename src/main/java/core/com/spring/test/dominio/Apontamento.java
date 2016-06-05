@@ -26,6 +26,10 @@ public class Apontamento implements Serializable {
 	public Apontamento() {
 	}
 
+	public Apontamento(Job job) {
+		this.job = job;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
