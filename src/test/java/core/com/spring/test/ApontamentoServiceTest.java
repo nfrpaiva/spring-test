@@ -5,11 +5,15 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -62,18 +66,53 @@ public class ApontamentoServiceTest extends AbstractSpringTest {
 				apontamentoService.obterApontamento(job.getId()));
 
 	}
+
 	@Test
-	public void testExisteMaisDeUmApontamentosEmAberto()throws Exception{
+	public void testExisteMaisDeUmApontamentosEmAberto() throws Exception {
 		Job job = criarNovoJobNoBancoDeDados();
 		criarNovoApontamentoNoBanco(job);
 		criarNovoApontamentoNoBanco(job);
-		try{
+		try {
 			apontamentoService.obterApontamento(job.getId());
 			fail("Mais de um apontamento em aberto deve lançar exceção");
-		}catch (Exception e) {
-			if (e instanceof ServiceException == false){
+		} catch (Exception e) {
+			if (e instanceof ServiceException == false) {
 				fail("Deve lançar exceção de serviço");
 			}
+		}
+	}
+
+	@Test
+	public void testExistePeriodoDuplicado() throws Exception {
+		Job job = criarNovoJobNoBancoDeDados();
+		Apontamento a = new Apontamento(job);
+		Date now =  DateTime.now().withTimeAtStartOfDay().toDate();
+		a.setInicio(now);
+		a.setFim(new DateTime(now).plus(Days.ONE).toDate());
+		em.persist(a);
+		Apontamento b = new Apontamento(job);
+		b.setInicio(now);
+		em.persist(b);
+		try {
+			apontamentoService.parar(b);
+			fail("Range de inicio e fim deve ser unico por job");
+		} catch (ServiceException e) {
+			assertEquals("O período informado de início e fim já existe em outro apontamento" , e.getMessage());
+		}
+
+	}
+	
+	@Test
+	public void testInicioMaiorQueFim(){
+		Job job =  criarNovoJobNoBancoDeDados();
+		Apontamento a = new Apontamento(job);
+		a.setInicio(DateTime.parse("2016-07-06T00:00-03:00").toDate());
+		a.setFim(DateTime.parse("2016-06-06T00:00-03:00").toDate());
+		try{
+			em.persist(a);
+			fail("Não aceitar data de inicio maior que data fim");
+		}catch (Exception e){
+			
 		}
 		
 	}
@@ -84,11 +123,11 @@ public class ApontamentoServiceTest extends AbstractSpringTest {
 		em.persist(job);
 		return job;
 	}
-	private Apontamento criarNovoApontamentoNoBanco(Job job){
+
+	private Apontamento criarNovoApontamentoNoBanco(Job job) {
 		Apontamento a = new Apontamento();
 		a.setJob(job);
 		em.persist(a);
 		return a;
 	}
 }
-

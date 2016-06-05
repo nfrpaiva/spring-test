@@ -11,15 +11,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.ConstraintValidatorContext;
 
 import org.joda.time.DateTime;
 
 @Entity
-@NamedQuery(name="find.allAllOpenByJob", query="select a from Apontamento a where a.fim = null and a.job.id = :idJob")
-public class Apontamento implements Serializable {
+@NamedQueries(value={
+		@NamedQuery(name="find.allAllOpenByJob", query="select a from Apontamento a where a.fim = null and a.job.id = :idJob"),
+		@NamedQuery(name="count.byPeriod", query="select count(1) from Apontamento a where a.fim >= :inicio and a.job.id = :idJob and a != :apontamento")
+		
+})
+public class Apontamento implements Serializable, Validable {
 
 	private static final long serialVersionUID = 2819171568609241636L;
 
@@ -109,6 +115,20 @@ public class Apontamento implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		return true;
+	}
+
+	@Override
+	public boolean validate(ConstraintValidatorContext cvc) {
+		if (this.inicio == null || this.fim == null){
+			return true;
+		}
+		if (new DateTime(this.inicio).isAfter(new DateTime(this.fim))){
+			cvc.buildConstraintViolationWithTemplate("{core.com.spring.test.constraint.apontamento.inicio.maior.fim}")
+            //.addPropertyNode("fim")
+            .addConstraintViolation();
+			return false;
+		}
 		return true;
 	}
 	

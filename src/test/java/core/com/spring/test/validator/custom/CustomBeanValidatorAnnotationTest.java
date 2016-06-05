@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 import org.junit.Test;
 
-import core.com.spring.test.validator.AnoFabricacaoMaiorQueAnoModelo;
+import core.com.spring.test.validator.ValidableEntity;
 import core.com.spring.test.validator.CaseMode;
 import core.com.spring.test.validator.CheckCase;
 
@@ -30,8 +30,8 @@ public class CustomBeanValidatorAnnotationTest {
 
 	public void testAnoFabricacaoMaiorQueAnoModeloAnnotation() throws Exception {
 		Class<?>[] args = new Class[]{};
-		Method m = AnoFabricacaoMaiorQueAnoModelo.class.getMethod("message",args);
-		String key = (String) m.invoke(AnoFabricacaoMaiorQueAnoModelo.class,new Object[]{});
+		Method m = ValidableEntity.class.getMethod("message",args);
+		String key = (String) m.invoke(ValidableEntity.class,new Object[]{});
 		assertKey(key);
 	}
 

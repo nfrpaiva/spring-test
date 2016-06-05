@@ -14,11 +14,11 @@ import javax.validation.Payload;
  */
 @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = AnoFabricaoModeloConstraint.class)
+@Constraint(validatedBy = ValidableEntityConstraint.class)
 @Documented
-public @interface AnoFabricacaoMaiorQueAnoModelo {
+public @interface ValidableEntity {
 
-    String message() default "{core.com.spring.test.constraint.anofabricacao}";
+    String message() default "";
 
     Class<?>[] groups() default {};
 
