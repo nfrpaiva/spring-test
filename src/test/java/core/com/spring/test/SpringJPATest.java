@@ -1,23 +1,23 @@
 package core.com.spring.test;
 
-import core.com.spring.test.config.AbstractSpringTest;
-import core.com.spring.test.config.PersistenceJPAConfig;
-import core.com.spring.test.dominio.Pessoa;
-import core.com.spring.test.infra.BaseRepository;
-import core.com.spring.test.repository.CommonRepository;
-import core.com.spring.test.service.PessoaService;
-
 import java.lang.reflect.Field;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Validator;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+
+import core.com.spring.test.config.AbstractSpringTest;
+import core.com.spring.test.config.PersistenceJPAConfig;
+import core.com.spring.test.dominio.Pessoa;
+import core.com.spring.test.infra.BaseRepository;
+import core.com.spring.test.service.PessoaService;
 
 /**
  *
@@ -33,7 +33,6 @@ public class SpringJPATest extends AbstractSpringTest{
     private PessoaService pessoaService;
     
     @Autowired 
-    @CommonRepository
     private BaseRepository repository;
     
     @Test
@@ -44,7 +43,7 @@ public class SpringJPATest extends AbstractSpringTest{
     @Test
     public void testIfPersistenceContextInjectionWorks() throws Exception {
         Assert.assertNotNull(this.repository);
-        Field f = this.repository.getClass().getDeclaredField("em");
+        Field f = this.repository.getClass().getSuperclass().getDeclaredField("em");
         f.setAccessible(true);
         Object em = f.get(this.repository);
         Assert.assertNotNull("Entity Manager não pode ser nulo",em);
