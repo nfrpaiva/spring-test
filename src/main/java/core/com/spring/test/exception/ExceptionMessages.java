@@ -7,7 +7,8 @@ public enum ExceptionMessages {
 	ERRO_AO_LOGIN("login.erro"),
 	SUCESSO_LOGIN("login.sucesso"),
 	LOGIN_ACENTO("login.acento"),
-	NOME_INVALIDO("nome.invalido");
+	NOME_INVALIDO("nome.invalido"), 
+	ERRO_GENERICO("erro.generico");
 
 	private final String value;
 
