@@ -4,6 +4,7 @@ import core.com.spring.test.config.AbstractSpringTest;
 import core.com.spring.test.config.PersistenceJPAConfig;
 import core.com.spring.test.dominio.Pessoa;
 import core.com.spring.test.infra.BaseRepository;
+import core.com.spring.test.repository.CommonRepository;
 import core.com.spring.test.service.PessoaService;
 
 import java.lang.reflect.Field;
@@ -32,6 +33,7 @@ public class SpringJPATest extends AbstractSpringTest{
     private PessoaService pessoaService;
     
     @Autowired 
+    @CommonRepository
     private BaseRepository repository;
     
     @Test

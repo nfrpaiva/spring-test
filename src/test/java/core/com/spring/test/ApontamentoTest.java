@@ -37,7 +37,7 @@ public class ApontamentoTest extends AbstractSpringTest {
 	@Test
 	public void testIniciarApontamento() throws Exception {
 		Job job = criarNovoJobNoBancoDeDados();
-		Apontamento a = apontamentoService.obterApontamentoEmExecucao(job.getId());
+		Apontamento a = apontamentoService.obterApontamento(job.getId());
 		assertNotNull(a);
 		assertNotNull(a.getId());
 		assertNotNull(a.getInicio());
@@ -47,8 +47,8 @@ public class ApontamentoTest extends AbstractSpringTest {
 	@Test
 	public void testFinalizarApontamento() throws Exception {
 		Job job = criarNovoJobNoBancoDeDados();
-		Apontamento a = apontamentoService.obterApontamentoEmExecucao(job.getId());
-		apontamentoService.obterApontamentoEmExecucao(job.getId());
+		Apontamento a = apontamentoService.obterApontamento(job.getId());
+		apontamentoService.obterApontamento(job.getId());
 		apontamentoService.parar(a);
 		Apontamento b = em.find(Apontamento.class, a.getId());
 		assertNotNull(b.getFim());
@@ -57,9 +57,9 @@ public class ApontamentoTest extends AbstractSpringTest {
 	@Test
 	public void testExisteApontamentoEmAberto() throws Exception {
 		Job job = criarNovoJobNoBancoDeDados();
-		Apontamento a = apontamentoService.obterApontamentoEmExecucao(job.getId());
+		Apontamento a = apontamentoService.obterApontamento(job.getId());
 		assertEquals("Se já existe um apontamento em aberto ao tentar criar outro deve devolver o mesmo", a,
-				apontamentoService.obterApontamentoEmExecucao(job.getId()));
+				apontamentoService.obterApontamento(job.getId()));
 
 	}
 	@Test
@@ -68,7 +68,7 @@ public class ApontamentoTest extends AbstractSpringTest {
 		criarNovoApontamentoNoBanco(job);
 		criarNovoApontamentoNoBanco(job);
 		try{
-			apontamentoService.obterApontamentoEmExecucao(job.getId());
+			apontamentoService.obterApontamento(job.getId());
 			fail("Mais de um apontamento em aberto deve lançar exceção");
 		}catch (Exception e) {
 			if (e instanceof ServiceException == false){
@@ -80,6 +80,7 @@ public class ApontamentoTest extends AbstractSpringTest {
 
 	private Job criarNovoJobNoBancoDeDados() {
 		Job job = new Job();
+		job.setDescricao("ApontamentoTest Job");
 		em.persist(job);
 		return job;
 	}

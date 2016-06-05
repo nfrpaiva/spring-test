@@ -1,17 +1,18 @@
 package core.com.spring.test.service;
 
 import javax.inject.Inject;
-
-import org.springframework.stereotype.Component;
+import javax.inject.Named;
 
 import core.com.spring.test.dominio.Pessoa;
 import core.com.spring.test.infra.BaseRepository;
+import core.com.spring.test.repository.CommonRepository;
 
-@Component
-//@Transactional
+@Named
+
 public class PessoaServiceImpl implements PessoaService {
 
 	@Inject
+	@CommonRepository
 	BaseRepository repository;
 	
 
