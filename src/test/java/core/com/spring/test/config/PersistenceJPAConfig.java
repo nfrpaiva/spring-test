@@ -1,9 +1,12 @@
 package core.com.spring.test.config;
 
 import java.util.Properties;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -20,13 +23,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
+@ComponentScan(basePackages = { "core.com.spring.test" })
 public class PersistenceJPAConfig {
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(dataSource());
-		em.setPackagesToScan(new String[]{"core.com.spring.test"});
+		em.setPackagesToScan(new String[] { "core.com.spring.test" });
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
 		em.setJpaProperties(additionalProperties());
@@ -57,9 +61,9 @@ public class PersistenceJPAConfig {
 
 	Properties additionalProperties() {
 		Properties properties = new Properties();
-		properties.setProperty("hibernate.hbm2ddl.auto","create-drop");
-		properties.setProperty("hibernate.dialect","org.hibernate.dialect.H2Dialect");
-		properties.setProperty("hibernate.show_sql","true");
+		properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+		properties.setProperty("hibernate.show_sql", "true");
 		return properties;
 	}
 }
