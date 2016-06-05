@@ -5,14 +5,12 @@ import javax.inject.Named;
 
 import core.com.spring.test.dominio.Pessoa;
 import core.com.spring.test.infra.BaseRepository;
-import core.com.spring.test.repository.CommonRepository;
 
 @Named
 
 public class PessoaServiceImpl implements PessoaService {
 
 	@Inject
-	@CommonRepository
 	BaseRepository repository;
 	
 

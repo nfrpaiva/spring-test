@@ -11,26 +11,30 @@ import core.com.spring.test.dominio.Apontamento;
 import core.com.spring.test.dominio.Job;
 import core.com.spring.test.exception.ExceptionMessages;
 import core.com.spring.test.exception.ServiceException;
-import core.com.spring.test.repository.ApontamentoRepository;
+import core.com.spring.test.infra.BaseRepository;
+import core.com.spring.test.repository.ApontamentoRepositoryImpl;
 
 @Named
 public class ApontamentoServiceImpl implements ApontamentoService {
 
 	@Inject
-	private ApontamentoRepository repository;
+	private ApontamentoRepositoryImpl repository;
+	
+	@Inject
+	private BaseRepository baseRepository;
 
 	@Override
-	public Apontamento obterApontamento(Long idJob) throws ServiceException{
+	public Apontamento obterApontamento(Long idJob) throws ServiceException {
 		Apontamento result = null;
-		List<Apontamento> apontamentos =  repository.findApontamentosEmAberto(idJob);
-		if (apontamentos.size() ==0){
+		List<Apontamento> apontamentos = repository.findApontamentosEmAberto(idJob);
+		if (apontamentos.size() == 0) {
 			Apontamento a = new Apontamento();
 			a.setJob(new Job(idJob));
-			repository.persist(a);
+			baseRepository.persist(a);
 			result = a;
-		}else if(apontamentos.size()==1) {
+		} else if (apontamentos.size() == 1) {
 			return apontamentos.get(0);
-		}else {
+		} else {
 			throw new ServiceException(ExceptionMessages.ERRO_GENERICO);
 		}
 		return result;
@@ -39,10 +43,8 @@ public class ApontamentoServiceImpl implements ApontamentoService {
 	@Override
 	public void parar(Apontamento a) {
 		a.setFim(DateTime.now().toDate());
-		repository.merge(a);
+		baseRepository.merge(a);
 
 	}
-	
-
 
 }
