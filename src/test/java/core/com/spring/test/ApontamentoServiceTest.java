@@ -11,9 +11,11 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -110,9 +112,10 @@ public class ApontamentoServiceTest extends AbstractSpringTest {
 		a.setFim(DateTime.parse("2016-06-06T00:00-03:00").toDate());
 		try{
 			em.persist(a);
+			em.flush();
 			fail("Não aceitar data de inicio maior que data fim");
 		}catch (Exception e){
-			
+			Assert.assertTrue(e instanceof ConstraintViolationException);
 		}
 		
 	}
@@ -121,6 +124,7 @@ public class ApontamentoServiceTest extends AbstractSpringTest {
 		Job job = new Job();
 		job.setDescricao("ApontamentoTest Job");
 		em.persist(job);
+		em.flush();
 		return job;
 	}
 
@@ -128,6 +132,7 @@ public class ApontamentoServiceTest extends AbstractSpringTest {
 		Apontamento a = new Apontamento();
 		a.setJob(job);
 		em.persist(a);
+		em.flush();
 		return a;
 	}
 }
