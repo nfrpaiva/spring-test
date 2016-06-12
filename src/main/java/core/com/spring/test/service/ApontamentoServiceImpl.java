@@ -6,8 +6,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.joda.time.DateTime;
-
 import core.com.spring.test.dominio.Apontamento;
 import core.com.spring.test.dominio.Job;
 import core.com.spring.test.exception.BusinessException;
@@ -15,30 +13,30 @@ import core.com.spring.test.exception.ExceptionMessages;
 import core.com.spring.test.exception.RepositoryException;
 import core.com.spring.test.exception.ServiceException;
 import core.com.spring.test.infra.BaseRepository;
-import core.com.spring.test.repository.ApontamentoRepositoryImpl;
+import core.com.spring.test.repository.ApontamentoRepository;
 
 @Named
 public class ApontamentoServiceImpl implements ApontamentoService {
 
 	@Inject
-	private ApontamentoRepositoryImpl repository;
-	
+	private ApontamentoRepository repository;
+
 	@Inject
 	private BaseRepository baseRepository;
+
+	@Inject
+	TimeManager timeManager;
 
 	@Override
 	public Apontamento obterApontamento(Long idJob) throws BusinessException {
 		Apontamento result = null;
-		List<Apontamento> apontamentos =  new ArrayList<>();
+		List<Apontamento> apontamentos = new ArrayList<>();
 		apontamentos = repository.findApontamentosEmAberto(idJob);
 		if (apontamentos.size() == 0) {
 			Apontamento a = new Apontamento();
+			a.setInicio(timeManager.now());
 			a.setJob(new Job(idJob));
-			try {
-				baseRepository.salvar(a);
-			} catch (RepositoryException e) {
-				throw new ServiceException(ExceptionMessages.ERRO_AO_OBTER_APONTAMENTO, e);
-			}
+			salvar(a);
 			result = a;
 		} else if (apontamentos.size() == 1) {
 			return apontamentos.get(0);
@@ -48,14 +46,22 @@ public class ApontamentoServiceImpl implements ApontamentoService {
 		return result;
 	}
 
+	private void salvar(Apontamento a) throws ServiceException {
+		try {
+			baseRepository.salvar(a);
+		} catch (RepositoryException e) {
+			throw new ServiceException(ExceptionMessages.ERRO_AO_OBTER_APONTAMENTO, e);
+		}
+	}
+
 	@Override
 	public void parar(Apontamento a) throws BusinessException {
-		a.setFim(DateTime.now().toDate());
-		Apontamento entity =  baseRepository.find(Apontamento.class, a.getId());
+		Apontamento entity = baseRepository.find(Apontamento.class, a.getId());
 		if (repository.existeApontamentoComOMesmoRange(entity)) {
 			throw new ServiceException(ExceptionMessages.ERRO_EXISTE_APONTAMENTO_COM_MESMO_RANGE);
 		}
 		try {
+			a.setFim(timeManager.now());
 			baseRepository.alterar(a);
 		} catch (RepositoryException e) {
 			throw new ServiceException(ExceptionMessages.ERRO_AO_PARAR_APONTAMENTO, e);
