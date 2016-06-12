@@ -1,5 +1,6 @@
 package core.com.spring.test;
 
+import static core.com.spring.test.Factory.ApontamentoFactory.novoComId;
 import static org.easymock.EasyMock.anyLong;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
@@ -7,7 +8,6 @@ import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.reset;
 import static org.easymock.EasyMock.verify;
 import static org.hamcrest.Matchers.equalTo;
-import static org.joda.time.Days.ONE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -33,8 +33,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.google.common.collect.Lists;
+
+import core.com.spring.test.Factory.ApontamentoFactory;
 import core.com.spring.test.dominio.Apontamento;
-import core.com.spring.test.dominio.Job;
 import core.com.spring.test.exception.ServiceException;
 import core.com.spring.test.infra.BaseRepository;
 import core.com.spring.test.repository.ApontamentoRepository;
@@ -93,11 +95,8 @@ public class ApontamentoServiceTest {
 	@Test
 	public void obterApontamentoExistenteEObterSucesso() throws Exception {
 		Date now = DateTime.now().minus(Days.ONE).toDate();
-		Apontamento apontamento = new Apontamento();
-		apontamento.setId(ANY_JOB_ID);
-		apontamento.setInicio(now);
-		List<Apontamento> apontamentos = new ArrayList<>();
-		apontamentos.add(apontamento);
+		Apontamento apontamento = ApontamentoFactory.novoComId(now);
+		List<Apontamento> apontamentos = Lists.newArrayList(apontamento);
 		expect(mockRepository.findApontamentosEmAberto(anyLong())).andReturn(apontamentos);
 		expectLastCall();
 		replay(mocks);
@@ -109,15 +108,9 @@ public class ApontamentoServiceTest {
 
 	@Test
 	public void obterNovoApontamentoEFalharPorExistirMaisDeUmEmAberto() throws Exception {
-		Apontamento apontamento1 = new Apontamento();
-		apontamento1.setId(ANY_JOB_ID);
-		Apontamento apontamento2 = new Apontamento();
-		apontamento2.setId(ANY_JOB_ID);
-		List<Apontamento> apontamentos = new ArrayList<>();
+		List<Apontamento> apontamentos = Lists.newArrayList(novoComId(), novoComId());
 		expect(mockRepository.findApontamentosEmAberto(anyLong())).andReturn(apontamentos);
 		replay(mocks);
-		apontamentos.add(apontamento1);
-		apontamentos.add(apontamento2);
 		try {
 			apontamentoService.obterApontamento(ANY_JOB_ID);
 			verify(mocks);
@@ -131,7 +124,7 @@ public class ApontamentoServiceTest {
 
 	@Test
 	public void pararApontamentoETerSucesso() throws Exception {
-		Date end = DateTime.now().plus(ONE).withTimeAtStartOfDay().toDate();
+		Date end = new Date();
 		Apontamento a = new Apontamento();
 		a.setId(ANY_APONTAMENTO_ID);
 		expect(mockBaseRepository.find(Apontamento.class, ANY_APONTAMENTO_ID)).andReturn(a);
@@ -146,14 +139,12 @@ public class ApontamentoServiceTest {
 	}
 
 	@Test
-	public void pararApontamentoEFalhar() throws Exception {
-		Apontamento a = new Apontamento(new Job(ANY_JOB_ID));
-		a.setId(ANY_JOB_ID);
-		expect(mockBaseRepository.find(Apontamento.class, ANY_APONTAMENTO_ID)).andReturn(a);
+	public void pararApontamentoEFalharPorJaExistirUmApontamentoComMesmoRange() throws Exception {
+		Apontamento a = ApontamentoFactory.novoComId();
+		expect(mockBaseRepository.find(Apontamento.class, a.getId())).andReturn(a);
 		expect(mockRepository.existeApontamentoComOMesmoRange(EasyMock.anyObject(Apontamento.class))).andReturn(true);
 		replay(mocks);
-		Apontamento b = new Apontamento(new Job(ANY_JOB_ID));
-		b.setId(ANY_JOB_ID);
+		Apontamento b = ApontamentoFactory.novoComId();
 		try {
 			apontamentoService.parar(b);
 			verify(mocks);
