@@ -38,7 +38,6 @@ import com.google.common.collect.Lists;
 import core.com.spring.test.Factory.ApontamentoFactory;
 import core.com.spring.test.dominio.Apontamento;
 import core.com.spring.test.exception.ServiceException;
-import core.com.spring.test.infra.BaseRepository;
 import core.com.spring.test.repository.ApontamentoRepository;
 import core.com.spring.test.service.ApontamentoService;
 import core.com.spring.test.service.ApontamentoServiceImpl;
@@ -60,16 +59,13 @@ public class ApontamentoServiceTest {
 	private ApontamentoRepository mockRepository;
 
 	@Mock
-	private BaseRepository mockBaseRepository;
-
-	@Mock
 	private TimeManager timeManager;
 
 	private Object[] mocks;
 
 	@Before
 	public void setUp() {
-		mocks = new Object[] { timeManager, mockRepository, mockBaseRepository };
+		mocks = new Object[] { timeManager, mockRepository };
 	}
 
 	@After
@@ -83,7 +79,7 @@ public class ApontamentoServiceTest {
 		List<Apontamento> apontamentos = new ArrayList<>();
 		expect(timeManager.now()).andReturn(now);
 		expect(mockRepository.findApontamentosEmAberto(anyLong())).andReturn(apontamentos);
-		mockBaseRepository.salvar(EasyMock.anyObject(Apontamento.class));
+		mockRepository.salvar(EasyMock.anyObject(Apontamento.class));
 		expectLastCall();
 		replay(mocks);
 		Apontamento a = apontamentoService.obterApontamento(ANY_JOB_ID);
@@ -127,10 +123,10 @@ public class ApontamentoServiceTest {
 		Date end = new Date();
 		Apontamento a = new Apontamento();
 		a.setId(ANY_APONTAMENTO_ID);
-		expect(mockBaseRepository.find(Apontamento.class, ANY_APONTAMENTO_ID)).andReturn(a);
+		expect(mockRepository.find(Apontamento.class, ANY_APONTAMENTO_ID)).andReturn(a);
 		expect(mockRepository.existeApontamentoComOMesmoRange(EasyMock.anyObject(Apontamento.class))).andReturn(false);
 		expect(timeManager.now()).andReturn(end);
-		mockBaseRepository.alterar(a);
+		mockRepository.alterar(a);
 		expectLastCall();
 		replay(mocks);
 		apontamentoService.parar(a);
@@ -141,7 +137,7 @@ public class ApontamentoServiceTest {
 	@Test
 	public void pararApontamentoEFalharPorJaExistirUmApontamentoComMesmoRange() throws Exception {
 		Apontamento a = ApontamentoFactory.novoComId();
-		expect(mockBaseRepository.find(Apontamento.class, a.getId())).andReturn(a);
+		expect(mockRepository.find(Apontamento.class, a.getId())).andReturn(a);
 		expect(mockRepository.existeApontamentoComOMesmoRange(EasyMock.anyObject(Apontamento.class))).andReturn(true);
 		replay(mocks);
 		Apontamento b = ApontamentoFactory.novoComId();

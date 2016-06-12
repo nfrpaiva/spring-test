@@ -8,14 +8,16 @@ import core.com.spring.test.exception.BusinessException;
 import core.com.spring.test.exception.ExceptionMessages;
 import core.com.spring.test.exception.RepositoryException;
 import core.com.spring.test.exception.ServiceException;
+import core.com.spring.test.infra.Base;
 import core.com.spring.test.infra.BaseRepository;
 
 @Named
 public class JobServiceImpl implements JobService {
 
 	@Inject
+	@Base
 	private BaseRepository baseRepository;
-	
+
 	@Override
 	public void salvar(Job job) throws BusinessException {
 		try {

@@ -12,7 +12,6 @@ import core.com.spring.test.exception.BusinessException;
 import core.com.spring.test.exception.ExceptionMessages;
 import core.com.spring.test.exception.RepositoryException;
 import core.com.spring.test.exception.ServiceException;
-import core.com.spring.test.infra.BaseRepository;
 import core.com.spring.test.repository.ApontamentoRepository;
 
 @Named
@@ -20,9 +19,6 @@ public class ApontamentoServiceImpl implements ApontamentoService {
 
 	@Inject
 	private ApontamentoRepository repository;
-
-	@Inject
-	private BaseRepository baseRepository;
 
 	@Inject
 	TimeManager timeManager;
@@ -48,7 +44,7 @@ public class ApontamentoServiceImpl implements ApontamentoService {
 
 	private void salvar(Apontamento a) throws ServiceException {
 		try {
-			baseRepository.salvar(a);
+			repository.salvar(a);
 		} catch (RepositoryException e) {
 			throw new ServiceException(ExceptionMessages.ERRO_AO_OBTER_APONTAMENTO, e);
 		}
@@ -56,13 +52,13 @@ public class ApontamentoServiceImpl implements ApontamentoService {
 
 	@Override
 	public void parar(Apontamento a) throws BusinessException {
-		Apontamento entity = baseRepository.find(Apontamento.class, a.getId());
+		Apontamento entity = repository.find(Apontamento.class, a.getId());
 		if (repository.existeApontamentoComOMesmoRange(entity)) {
 			throw new ServiceException(ExceptionMessages.ERRO_EXISTE_APONTAMENTO_COM_MESMO_RANGE);
 		}
 		try {
 			a.setFim(timeManager.now());
-			baseRepository.alterar(a);
+			repository.alterar(a);
 		} catch (RepositoryException e) {
 			throw new ServiceException(ExceptionMessages.ERRO_AO_PARAR_APONTAMENTO, e);
 		}
