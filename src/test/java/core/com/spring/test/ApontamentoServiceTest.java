@@ -1,6 +1,7 @@
 package core.com.spring.test;
 
 import static core.com.spring.test.Factory.ApontamentoFactory.novoComId;
+import static javax.validation.Validation.buildDefaultValidatorFactory;
 import static org.easymock.EasyMock.anyLong;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
@@ -18,7 +19,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import javax.validation.Validator;
 
 import org.easymock.EasyMock;
@@ -157,8 +157,8 @@ public class ApontamentoServiceTest {
 
 	@Test
 	public void testInicioMaiorQueFim() {
-		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-		Apontamento a = new Apontamento();
+		Validator validator = buildDefaultValidatorFactory().getValidator();
+		Apontamento a = novoComId();
 		a.setInicio(DateTime.parse("2016-07-06T00:00-03:00").toDate());
 		a.setFim(DateTime.parse("2016-06-06T00:00-03:00").toDate());
 		Set<ConstraintViolation<Apontamento>> validate = validator.validate(a);
