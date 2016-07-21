@@ -20,10 +20,10 @@ import javax.validation.ConstraintValidatorContext;
 import org.joda.time.DateTime;
 
 @Entity
-@NamedQueries(value={
-		@NamedQuery(name="find.allAllOpenByJob", query="select a from Apontamento a where a.fim = null and a.job.id = :idJob"),
-		@NamedQuery(name="count.byPeriod", query="select count(1) from Apontamento a where a.fim >= :inicio and a.job.id = :idJob and a != :apontamento")
-		
+@NamedQueries(value = {
+		@NamedQuery(name = "find.allAllOpenByJob", query = "select a from Apontamento a where a.fim = null and a.job.id = :idJob"),
+		@NamedQuery(name = "count.byPeriod", query = "select count(1) from Apontamento a where a.fim >= :inicio and a.job.id = :idJob and a != :apontamento")
+
 })
 public class Apontamento implements Serializable, Validable {
 
@@ -41,7 +41,7 @@ public class Apontamento implements Serializable, Validable {
 	private Long id;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date inicio = DateTime.now().withTimeAtStartOfDay().toDate();
+	private Date inicio;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fim;
@@ -58,7 +58,7 @@ public class Apontamento implements Serializable, Validable {
 	String descricao;
 
 	@ManyToOne
-	@JoinColumn(name = "idJob", foreignKey = @ForeignKey(name="APONTAMENTO_JOB_FK"))
+	@JoinColumn(name = "idJob", foreignKey = @ForeignKey(name = "APONTAMENTO_JOB_FK"))
 	private Job job;
 
 	public Long getId() {
@@ -120,18 +120,16 @@ public class Apontamento implements Serializable, Validable {
 
 	@Override
 	public boolean validate(ConstraintValidatorContext cvc) {
-		if (this.inicio == null || this.fim == null){
+		if (this.inicio == null || this.fim == null) {
 			return true;
 		}
-		if (new DateTime(this.inicio).isAfter(new DateTime(this.fim))){
+		if (new DateTime(this.inicio).isAfter(new DateTime(this.fim))) {
 			cvc.buildConstraintViolationWithTemplate("{core.com.spring.test.constraint.apontamento.inicio.maior.fim}")
-            //.addPropertyNode("fim")
-            .addConstraintViolation();
+					// .addPropertyNode("fim")
+					.addConstraintViolation();
 			return false;
 		}
 		return true;
 	}
-	
-	
 
 }
