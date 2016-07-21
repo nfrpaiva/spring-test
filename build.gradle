@@ -38,6 +38,11 @@ dependencies {
       exclude(module: 'hamcrest-core')
       exclude(module: 'hamcrest-library')
     }
+    compile group: 'org.apache.cxf', name: 'cxf-rt-transports-http', version:'2.7.11.redhat-3'
+    compile(group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxws', version:'2.7.11.redhat-3') {
+      exclude(module: 'asm')
+    }
+    
     testCompile(group: 'junit', name: 'junit', version:'4.12') {
       exclude(module: 'hamcrest-core')
     }
