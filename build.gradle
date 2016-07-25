@@ -15,6 +15,11 @@ repositories {
      mavenCentral()
 }
 dependencies {
+	
+	compile(group: 'org.mockito', name: 'mockito-core', version: '1.10.19' ) {
+      exclude(module: 'org.hamcrest')
+    }
+    
 	compile group: 'com.google.guava', name: 'guava', version: '19.0'
     compile group: 'javax.validation', name: 'validation-api', version:'1.1.0.Final'
     compile group: 'org.hibernate', name: 'hibernate-validator', version:'5.2.4.Final'
@@ -42,9 +47,7 @@ dependencies {
       exclude(module: 'asm')
     }
     
-    compile(group: 'org.mockito', name: 'mockito-core', version: '1.10.19') {
-      exclude(module: 'org.hamcrest')
-    }
+    
 
     testCompile(group: 'junit', name: 'junit', version:'4.12') {
       exclude(module: 'hamcrest-core')
