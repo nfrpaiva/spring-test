@@ -64,8 +64,7 @@ public class PessoaSearchTest {
 	@Test
 	public void procurarPessoaFunction() {
 		String result = pessoaSexoMasculinoEmail(pessoas,
-				p -> p.getSexo() == Sexo.M 
-				&& p.getAniversario().equals(LocalDate.now()),
+				p -> p.getSexo() == Sexo.M && p.getAniversario().equals(LocalDate.now()),
 				p -> p.getEmail(),
 				p -> p.print());
 		Assert.assertEquals("pessoa.homem@email.com",result);

@@ -13,4 +13,9 @@ public class RepositoryImpl implements Repository {
 		em.persist(entity);
 	}
 
+	@Override
+	public TestEntity find(Long id) {
+		return em.find(TestEntity.class,id);
+	}
+
 }

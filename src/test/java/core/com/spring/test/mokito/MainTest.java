@@ -7,6 +7,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 import javax.persistence.EntityManager;
 
@@ -14,9 +15,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import core.com.spring.test.lambda.Pessoa;
+
 @RunWith(MockitoJUnitRunner.class)
+@SuppressWarnings("unused")
 public class MainTest {
 
 	@Mock
@@ -35,8 +40,15 @@ public class MainTest {
 	public void primeiro() throws Exception {
 		TestEntity entity = new TestEntity(1l,"Nilton Fernando");
 		service.doSomeThing(entity);
-		verify(mockRepository).save(any(TestEntity.class));
+		when(mockRepository.find(Mockito.anyLong())).thenReturn(entity);
+		verify(mockRepository).find(Mockito.anyLong());
+		verify(mockRepository,Mockito.times(1)).save(any(TestEntity.class));
 		verifyNoMoreInteractions(mockRepository);
+		//@formatter:off
+		Pessoa pessoa = new Pessoa(){{
+			setNome("churrros");
+		}};
+		
 	}
 
 	@Test
@@ -59,4 +71,5 @@ public class MainTest {
 		verify(mockEntityManager).persist(entity);
 		verifyNoMoreInteractions(mockEntityManager);
 	}
+	
 }

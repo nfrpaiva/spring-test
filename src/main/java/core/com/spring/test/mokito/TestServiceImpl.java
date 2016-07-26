@@ -8,5 +8,6 @@ public class TestServiceImpl implements TestService {
 	public void doSomeThing(TestEntity entity) {
 		System.out.println("doing Some Thing on TestServiceImp.doSomeThing(...)");
 		repository.save(entity);
+		repository.find(entity.getId());
 	}
 }
