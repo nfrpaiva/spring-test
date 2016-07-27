@@ -18,10 +18,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import core.com.spring.test.lambda.Pessoa;
-
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings("unused")
 public class MainTest {
 
 	@Mock
@@ -44,11 +41,6 @@ public class MainTest {
 		verify(mockRepository).find(Mockito.anyLong());
 		verify(mockRepository,Mockito.times(1)).save(any(TestEntity.class));
 		verifyNoMoreInteractions(mockRepository);
-		//@formatter:off
-		Pessoa pessoa = new Pessoa(){{
-			setNome("churrros");
-		}};
-		
 	}
 
 	@Test
@@ -71,5 +63,5 @@ public class MainTest {
 		verify(mockEntityManager).persist(entity);
 		verifyNoMoreInteractions(mockEntityManager);
 	}
-	
+
 }
