@@ -23,6 +23,7 @@ import core.com.spring.test.config.PersistenceJPAConfig;
 @Transactional
 public class JoinSemPkTest extends AbstractSpringTest {
 
+	private static final int REGISTROS_ESPERADOS = 1;
 	private static final long SUB_UM = 1l;
 	private static final long SUB_ZERO = 0l;
 	private static final long CONTRATO = 42905l;
@@ -44,20 +45,20 @@ public class JoinSemPkTest extends AbstractSpringTest {
 		loteDetalhe.setContratos(contratos);
 		em.persist(loteDetalhe);
 
-		LoteDetalhe loteDetalhe1 = new LoteDetalhe(2l);
-		loteDetalhe1.setContratos(contratos);
-		loteDetalhe1.setNumContrato(CONTRATO);
+		// LoteDetalhe loteDetalhe1 = new LoteDetalhe(2l);
+		// loteDetalhe1.setContratos(contratos);
+		// loteDetalhe1.setNumContrato(CONTRATO);
+		// em.persist(loteDetalhe1);
 
-		em.persist(loteDetalhe1);
 		em.flush();
 
 		em.clear();
 		@SuppressWarnings("unchecked")
 		List<LoteDetalhe> resultList = em.createQuery("select l from LoteDetalhe l").getResultList();
-		// Assert.assertThat(resultList.size(),Matchers.equalTo(2));
+		Assert.assertThat(resultList.size(),Matchers.equalTo(REGISTROS_ESPERADOS));
 		@SuppressWarnings("unchecked")
 		List<LoteDetalhe> resultList2 = em.createQuery("select distinct l from LoteDetalhe l join l.contratos c WHERE c.numContrato = 42905").getResultList();
-		// Assert.assertThat(resultList2.size(),Matchers.equalTo(2));
+		Assert.assertThat(resultList2.size(),Matchers.equalTo(REGISTROS_ESPERADOS));
 		Assert.assertThat(resultList2.get(0).getContratos().size(),Matchers.equalTo(2));
 	}
 
