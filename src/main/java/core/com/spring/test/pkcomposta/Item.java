@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -27,16 +26,23 @@ public class Item implements Serializable {
 
 	public static final String findAllWithPendencias = "findAllWithPendencias";
 	private static final long serialVersionUID = -2766499771468344703L;
-	private static final String SQ_ITEM_GENERATOR = "SQ_ITEM_GENERATOR";
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = SQ_ITEM_GENERATOR)
-	@SequenceGenerator(sequenceName = "SQ_ITEM",name = SQ_ITEM_GENERATOR)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "itemID",columnDefinition = "NUMBER(11)")
 	private Long itemID;
 	@Column(length = 100)
 	private String descricao;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "item")
 	private Set<Pendencia> pendencias = Sets.newHashSet();
+
+	public Item() {
+		super();
+	}
+
+	public Item(long itemID) {
+		this.itemID = itemID;
+
+	}
 
 	public Long getItemID() {
 		return itemID;
@@ -70,12 +76,22 @@ public class Item implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
+		return new HashCodeBuilder().append(this.itemID).build();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this,obj);
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Item item = (Item) obj;
+		return new EqualsBuilder().append(this.itemID,item.itemID).build();
 	}
 
 	@Override
