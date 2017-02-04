@@ -22,7 +22,7 @@ public class Contrato implements Serializable {
 	private Long subContrato;
 
 	public Contrato() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public Contrato(Long numContrato,Long subContrato) {
