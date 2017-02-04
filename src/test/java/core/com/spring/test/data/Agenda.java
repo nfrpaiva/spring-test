@@ -1,5 +1,10 @@
 package core.com.spring.test.data;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Agenda {
 
 	private Integer diaVencimentoFatura;
@@ -53,50 +58,17 @@ public class Agenda {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ( (diaLimiteEnvioMovimentacao == null) ? 0 : diaLimiteEnvioMovimentacao.hashCode());
-		result = prime * result + ( (diaPrevistoParaFaturamento == null) ? 0 : diaPrevistoParaFaturamento.hashCode());
-		result = prime * result + ( (diaVencimentoFatura == null) ? 0 : diaVencimentoFatura.hashCode());
-		result = prime * result + ( (mesEnvioMovimentacao == null) ? 0 : mesEnvioMovimentacao.hashCode());
-		return result;
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Agenda other = (Agenda) obj;
-		if (diaLimiteEnvioMovimentacao == null) {
-			if (other.diaLimiteEnvioMovimentacao != null)
-				return false;
-		} else if (!diaLimiteEnvioMovimentacao.equals(other.diaLimiteEnvioMovimentacao))
-			return false;
-		if (diaPrevistoParaFaturamento == null) {
-			if (other.diaPrevistoParaFaturamento != null)
-				return false;
-		} else if (!diaPrevistoParaFaturamento.equals(other.diaPrevistoParaFaturamento))
-			return false;
-		if (diaVencimentoFatura == null) {
-			if (other.diaVencimentoFatura != null)
-				return false;
-		} else if (!diaVencimentoFatura.equals(other.diaVencimentoFatura))
-			return false;
-		if (mesEnvioMovimentacao == null) {
-			if (other.mesEnvioMovimentacao != null)
-				return false;
-		} else if (!mesEnvioMovimentacao.equals(other.mesEnvioMovimentacao))
-			return false;
-		return true;
+		return EqualsBuilder.reflectionEquals(this,obj);
 	}
 
 	@Override
 	public String toString() {
-		return "Agenda [diaVencimentoFatura=" + diaVencimentoFatura + ", diaLimiteEnvioMovimentacao=" + diaLimiteEnvioMovimentacao + ", mesEnvioMovimentacao=" + mesEnvioMovimentacao + ", diaPrevistoParaFaturamento=" + diaPrevistoParaFaturamento + "]";
+		return ToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 }

@@ -11,7 +11,6 @@ public class ConcatenarDataTest {
 
 	// int diaAtencedendiaFaturamento = 5;
 
-	private DateTime maio31 = new DateTime(2016,1,31,0,0);
 	private Integer diasParametro = 5;
 
 	@Test
