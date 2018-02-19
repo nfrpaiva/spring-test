@@ -1,0 +1,3 @@
+    <jboss-web>  
+        <context-root>/portal</context-root>  
+    </jboss-web>  
