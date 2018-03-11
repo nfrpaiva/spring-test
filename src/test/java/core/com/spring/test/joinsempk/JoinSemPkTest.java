@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
 
+import core.com.spring.PersistenceJPAConfig;
 import core.com.spring.test.config.AbstractSpringTest;
-import core.com.spring.test.config.PersistenceJPAConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceJPAConfig.class})

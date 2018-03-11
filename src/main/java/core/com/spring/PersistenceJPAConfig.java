@@ -1,4 +1,4 @@
-package core.com.spring.test.config;
+package core.com.spring;
 
 import java.util.Properties;
 

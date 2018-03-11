@@ -13,8 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import core.com.spring.PersistenceJPAConfig;
 import core.com.spring.test.config.AbstractSpringTest;
-import core.com.spring.test.config.PersistenceJPAConfig;
 import core.com.spring.test.dominio.Job;
 import core.com.spring.test.service.JobService;
 

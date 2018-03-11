@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import core.com.spring.PersistenceJPAConfig;
 import core.com.spring.test.config.AbstractSpringTest;
-import core.com.spring.test.config.PersistenceJPAConfig;
 import core.com.spring.test.dominio.Pessoa;
 import core.com.spring.test.infra.Base;
 import core.com.spring.test.infra.BaseRepository;
